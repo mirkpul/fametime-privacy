@@ -27,7 +27,8 @@ sistema operativo del dispositivo su cui è installata:</p>
   <li>timestamp delle sessioni (per rilevare uso notturno, micro-scatti, rebound, maratone e frequenza),</li>
   <li>nomi delle app installate/avviate (niente contenuti, niente dati personali),</li>
   <li>per ogni notifica ricevuta, solo l'app che l'ha inviata e alcuni dati tecnici
-      (identificativo, categoria come "chiamata" o "sveglia", se è in corso), per contarla
+      (identificativo, categoria come "chiamata" o "sveglia", se è in corso), per contarla ed
+      eventualmente toglierla
       (vedi punto 2-bis): <strong>mai il titolo, il testo o gli allegati</strong>,</li>
   <li>il PIN del genitore e il codice di recupero, salvati solo come impronta cifrata (hash)
       sul dispositivo, e un registro locale degli eventi di protezione (PIN errati, impostazioni
@@ -46,15 +47,17 @@ i dati di utilizzo vengono eliminati con lei.</p>
 notifiche"</strong> (<code>NotificationListenerService</code>) con un solo scopo: evitare che le
 notifiche arrivino di continuo. Mentre la protezione è attiva Fametime <strong>conta</strong> le
 notifiche di ogni app: oltre 3 al minuto dalla stessa app, o se l'app è in pausa (bloccata),
-<strong>mette in pausa la notifica</strong> togliendola dalla tendina e mostra ogni tanto un
-riepilogo ("Oggi 12 notifiche raggruppate: …").</p>
+<strong>toglie (rimuove) la notifica</strong> dalla tendina — non viene ripresentata più tardi — e
+mostra ogni tanto un riepilogo con il solo numero ("Oggi 12 notifiche raggruppate: …").</p>
 <ul>
   <li>Fametime <strong>non legge, non salva e non invia mai il contenuto</strong> delle
       notifiche (titolo, testo, immagini, mittente): usa solo il nome dell'app, l'identificativo
-      tecnico della notifica, la categoria e se è in corso.</li>
+      tecnico della notifica, la categoria, alcuni flag tecnici (es. se è in corso o non cancellabile)
+      e se apre una schermata a tutto schermo (chiamate, sveglie).</li>
   <li>Conserva sul dispositivo solo il <strong>numero</strong> di notifiche raggruppate per app
       nella giornata.</li>
-  <li>Non tocca mai chiamate, sveglie, notifiche in corso, app di sistema e le app che il
+  <li>Non tocca mai chiamate (anche quelle perse), sveglie, notifiche a schermo intero, in corso o
+      non cancellabili, app di sistema e le app che il
       genitore ha indicato come "sempre consentite" (telefono, messaggi, emergenze…).</li>
   <li>Non risponde alle notifiche e non usa le loro azioni.</li>
 </ul>
@@ -68,7 +71,7 @@ riepilogo ("Oggi 12 notifiche raggruppate: …").</p>
   <li>riconoscere pattern di utilizzo compulsivo,</li>
   <li>mostrare all'utente spiegazioni educative sul proprio uso,</li>
   <li>mettere in pausa per un tempo limitato le app usate in modo compulsivo e raggruppare
-      le notifiche troppo frequenti.</li>
+      le notifiche troppo frequenti (togliendo quelle in eccesso).</li>
 </ul>
 <p>La finalità è una <strong>funzionalità richiesta e centrale</strong> dell'app:
 Fametime non può funzionare senza i dati di utilizzo locale.</p>
